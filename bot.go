@@ -97,7 +97,7 @@ func initConfig() error {
 	return nil
 }
 
-func Soundboard(s *discordgo.Session, m *discordgo.MessageCreate) {
+/*func Soundboard(s *discordgo.Session, m *discordgo.MessageCreate) {
 	if m.Author.ID == s.State.User.ID {
 		return
 	}
@@ -105,7 +105,7 @@ func Soundboard(s *discordgo.Session, m *discordgo.MessageCreate) {
 	switch (msg) {
 		case "!wololo"
 	}
-}
+}*/
 
 func main() {
 	checkErr(initConfig())
