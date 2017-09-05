@@ -1,0 +1,2 @@
+# adjutant
+Sentient Discord Bot.
