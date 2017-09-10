@@ -66,6 +66,21 @@ func ShitPostManagement(s *discordgo.Session, m *discordgo.MessageCreate) {
 	}
 }
 
+const helpMsg = `
+Howdy, here are my commands:
+!help: show this help message.
+`
+
+func Help(s *discordgo.Session, m *discordgo.MessageCreate) {
+	if m.Author.ID == s.State.User.ID {
+		return
+	}
+	content := strings.ToLower(strings.Trim(m.Content, " 	"))
+	if content == "!help" {
+		s.ChannelMessageSend(m.ChannelID, helpMsg)
+	}
+}
+
 func checkErr(err error) {
 	if err != nil {
 		fmt.Println("Error: ", err)
@@ -97,16 +112,6 @@ func initConfig() error {
 	return nil
 }
 
-/*func Soundboard(s *discordgo.Session, m *discordgo.MessageCreate) {
-	if m.Author.ID == s.State.User.ID {
-		return
-	}
-	msg := strings.Trim(strings.ToLower(m.Content), " 	")
-	switch (msg) {
-		case "!wololo"
-	}
-}*/
-
 func main() {
 	checkErr(initConfig())
 	discord, err := discordgo.New("Bot " + Token)
@@ -114,6 +119,7 @@ func main() {
 	discord.AddHandler(Welcomer)
 	discord.AddHandler(ShitPostManagement)
 	discord.AddHandler(WhoAmI)
+	discord.AddHandler(Help)
 	err = discord.Open()
 	checkErr(err)
 	fmt.Println("Bot is now running.  Press CTRL-C to exit.")
